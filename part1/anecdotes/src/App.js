@@ -8,6 +8,22 @@ const Button = ({name, onChange}) => {
   )
 }
 
+const Title = ({title}) => {
+  return (
+    <h2>{title}</h2>
+  )
+}
+
+
+const MostVotes = ({votes, anecdotes}) => {
+  const largest= votes.indexOf(Math.max(...votes)); 
+  return (
+    <div>
+      <p> {anecdotes[largest]}</p>
+    </div>
+  )
+}
+
 const App = () => {
   const anecdotes = [
     'If it hurts, do it more often',
@@ -40,11 +56,15 @@ const App = () => {
 
   return (
     <div>
+      <Title title='Anecdote of the day' />
       <p>{anecdotes[selected]}</p>
       <p>has {votes[selected]} votes</p>
       
       <Button name='vote' onChange={()=> setVote(addArray())}/>
       <Button name='next anecdote' onChange={()=> setSelected(randomNumber())}/>
+
+      <Title title='Anecdote with most votes' />
+      <MostVotes votes= {votes} anecdotes={anecdotes}/>
     </div>
   )
 }
