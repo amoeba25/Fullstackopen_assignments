@@ -1,47 +1,13 @@
 import React, { useState } from 'react'
+import Person from './components/Person'
+import Input from './components/Input'
 
 
-const Contact = ({name, phone}) => {
-  return (
-    <li>{name}: {phone} </li>
-  )
-}
 
 const Heading = ({heading}) => {
   return (
     <h2>{heading}</h2>
   )
-}
-
-const Input = ({label, value, onChange}) => {
-  return (
-    <div> {label}: <input 
-                value= {value}
-                onChange={onChange}/>
-    </div> 
-  )
-}
-
-const Person = ({persons, filterQuery}) => {
-  
-  if(filterQuery === '') {
-    return (<ul>
-      {persons.map(person => 
-        <Contact name= {person.name} key={person.name} phone={person.phone}/>
-      )}
-    </ul>)
-  }
-  else{
-    let filtered = persons.filter(obj => obj.name.toLowerCase().includes(filterQuery.toLowerCase()))
-    
-    return (<ul>
-      {filtered.map(person => 
-        <Contact name= {person.name} key={person.name} phone={person.phone}/>
-      )}
-    </ul>)
-  }
- 
- 
 }
 
 
