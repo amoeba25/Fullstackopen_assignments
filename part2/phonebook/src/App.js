@@ -4,13 +4,11 @@ import Input from './components/Input'
 import axios from  'axios'
 
 
-
 const Heading = ({heading}) => {
   return (
     <h2>{heading}</h2>
   )
 }
-
 
 const App = () => {
   const [persons, setPersons] = useState([]) 
