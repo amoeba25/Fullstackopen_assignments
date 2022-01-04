@@ -17,6 +17,23 @@ const Display = ({country, filter}) => {
       )
     }
     else{
+      if(filtered.length === 1) {
+        let obj = country[country.indexOf(filtered[0])]
+        return(
+          <> 
+          <h3>{obj.name.common}</h3>
+          <p>captial {obj.capital}</p>
+          <p>population {obj.population}</p>
+
+          <b>languages</b> <br/>
+          {Object.values(obj.languages).map(language => 
+            <li key={language}> {language} </li>)}
+
+          <br />
+          <img src={obj.flags.png} alt='flag'></img>
+          </>
+        )
+      }
       return (
       <ul>
         {filtered.map(country => 
@@ -34,7 +51,7 @@ const Display = ({country, filter}) => {
 
 const App = () => {
 
-  const [country, setNotes] = useState([])
+  const [country, setCountry] = useState([])
   const [filter, setFilter] = useState('')
 
   useEffect(() => {
@@ -42,7 +59,7 @@ const App = () => {
       .get('https://restcountries.com/v3.1/all')
       .then(response => {
         // console.log('promise fulfilled')
-        setNotes(response.data)
+        setCountry(response.data)
       })
   }, [])
 
