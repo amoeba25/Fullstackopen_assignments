@@ -4,6 +4,8 @@ import React, { useState, useEffect } from 'react'
 
 
 const Display = ({country, filter}) => {
+
+  const [weather, setWeather] = useState()
   if(filter === ''){
     return(
       <p>Search for a country!</p>
@@ -19,6 +21,17 @@ const Display = ({country, filter}) => {
     else{
       if(filtered.length === 1) {
         let obj = country[country.indexOf(filtered[0])]
+
+        //getting the api link for weather data
+        let weather_url=`https://api.openweathermap.org/data/2.5/weather?q=${obj.capital}&appid=${process.env.REACT_APP_WEATHER_API_KEY}&units=metric`;
+
+        
+        axios
+          .get(weather_url)
+          .then(response => {
+            setWeather(response.data.main.temp)
+          })
+
         return(
           <> 
           <h3>{obj.name.common}</h3>
@@ -31,6 +44,10 @@ const Display = ({country, filter}) => {
 
           <br />
           <img src={obj.flags.png} alt='flag'></img>
+
+          <h3>weather data in {obj.capital} </h3>
+          <b>temprature</b> {weather}
+
           </>
         )
       }
