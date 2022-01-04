@@ -37,7 +37,7 @@ const Display = ({country, filter}) => {
       return (
       <ul>
         {filtered.map(country => 
-          <li key={country.name.common}>{country.name.common} </li>
+          <li key={country.name.common}>{country.name.common} <a href={country.maps.googleMaps} target='_blank' rel="noreferrer"><button> show </button> </a> </li>
         )}
       </ul>
       )
