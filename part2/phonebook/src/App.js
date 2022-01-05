@@ -46,6 +46,11 @@ const App = () => {
             setPersons(persons.map(person => person.id !== match.id? person: response.data))
             setNewName('')
             setNewPhone('')
+
+            setSuccessMessage(`${response.data.name} has been changed!`)
+            setTimeout(
+              ()=> setSuccessMessage(null) 
+            ,5000)
           })
       
     }
