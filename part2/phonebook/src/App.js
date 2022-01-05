@@ -1,7 +1,7 @@
 import React, { useState, useEffect} from 'react'
 import Person from './components/Person'
 import Input from './components/Input'
-import axios from  'axios'
+import contactService from './services/contact'
 
 
 const Heading = ({heading}) => {
@@ -17,8 +17,7 @@ const App = () => {
   const [newFilter, setNewFilter] = useState('')
   
   useEffect(() => {
-    axios
-      .get('http://localhost:3001/persons')
+    contactService.getAll()
       .then(response => {
         setPersons(response.data)
       })
@@ -37,7 +36,7 @@ const App = () => {
         phone: newPhone
       }
   
-      axios.post('http://localhost:3001/persons', nameObject)
+      contactService.create(nameObject)
           .then(response => {
             setPersons(persons.concat(response.data)); 
             setNewName('');
