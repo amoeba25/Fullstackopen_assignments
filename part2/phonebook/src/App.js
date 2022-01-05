@@ -42,6 +42,7 @@ const App = () => {
       const match = persons.find(p => p.name === newName); 
       const changedPerson = {...match, phone: newPhone}
 
+      //updating a name with a different number
       contactService
           .update(match.id, changedPerson)
           .then(response => {
@@ -55,7 +56,10 @@ const App = () => {
             ,5000)
           })
           .catch(error => {
-            setFailuresMessage(`name has been deleted!`)
+            setNewName('')
+            setNewPhone('')
+            
+            setFailuresMessage(`${changedPerson.name} has been deleted!`)
             setTimeout(
               ()=> setFailuresMessage(null) 
             ,5000)
