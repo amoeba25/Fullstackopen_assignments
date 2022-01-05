@@ -23,21 +23,35 @@ const App = () => {
       .then(response => {
         setPersons(response.data)
       })
-  }, [persons])
+  }, [])
 
   const addNumber = (event) => {
     event.preventDefault(); 
 
+    const nameObject = {
+      name: newName, 
+      phone: newPhone
+    }
+
     //check if the name already exists
     if(persons.some(person => person.name === newName )){
-      alert(`${newName} is already added to the phonebook`)
+      window.confirm(`${newName} is already added to the phonebook, repalce the old number with the new number?`)
+
+      //getting the object which matches the name
+      const match = persons.find(p => p.name === newName); 
+      const changedPerson = {...match, phone: newPhone}
+
+      contactService
+          .update(match.id, changedPerson)
+          .then(response => {
+            setPersons(persons.map(person => person.id !== match.id? person: response.data))
+            setNewName('')
+            setNewPhone('')
+          })
+      
     }
     else{
-      const nameObject = {
-        name: newName, 
-        phone: newPhone
-      }
-  
+      
       contactService.create(nameObject)
           .then(response => {
             setPersons(persons.concat(response.data)); 
