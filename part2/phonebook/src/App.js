@@ -2,6 +2,8 @@ import React, { useState, useEffect} from 'react'
 import Person from './components/Person'
 import Input from './components/Input'
 import contactService from './services/contact'
+import Success from './components/Success'
+import './App.css'
 
 
 const Heading = ({heading}) => {
@@ -17,6 +19,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newPhone, setNewPhone] = useState('')
   const [newFilter, setNewFilter] = useState('')
+  const [successMessage, setSuccessMessage] = useState(null)
   
   useEffect(() => {
     contactService.getAll()
@@ -28,10 +31,6 @@ const App = () => {
   const addNumber = (event) => {
     event.preventDefault(); 
 
-    const nameObject = {
-      name: newName, 
-      phone: newPhone
-    }
 
     //check if the name already exists
     if(persons.some(person => person.name === newName )){
@@ -51,12 +50,22 @@ const App = () => {
       
     }
     else{
+
+      const nameObject = {
+        name: newName, 
+        phone: newPhone
+      }
       
       contactService.create(nameObject)
           .then(response => {
             setPersons(persons.concat(response.data)); 
             setNewName('');
             setNewPhone('');
+
+            setSuccessMessage(`${response.data.name} has been added!`)
+            setTimeout(
+              ()=> setSuccessMessage(null) 
+            ,5000)
           })
       
     }
@@ -79,6 +88,7 @@ const App = () => {
   return (
     <div>
       <Heading heading= 'Phonebook'/>
+      <Success message={successMessage}/>
       <Input label ='filter' value={newFilter} onChange={handleFilterChange} /> <br />
 
       <Heading heading= 'Add a new'/>
