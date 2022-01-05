@@ -4,6 +4,7 @@ import Input from './components/Input'
 import contactService from './services/contact'
 import Success from './components/Success'
 import './App.css'
+import Failure from './components/Failure'
 
 
 const Heading = ({heading}) => {
@@ -20,6 +21,7 @@ const App = () => {
   const [newPhone, setNewPhone] = useState('')
   const [newFilter, setNewFilter] = useState('')
   const [successMessage, setSuccessMessage] = useState(null)
+  const [failureMessage, setFailuresMessage] = useState(null)
   
   useEffect(() => {
     contactService.getAll()
@@ -51,6 +53,13 @@ const App = () => {
             setTimeout(
               ()=> setSuccessMessage(null) 
             ,5000)
+          })
+          .catch(error => {
+            setFailuresMessage(`name has been deleted!`)
+            setTimeout(
+              ()=> setFailuresMessage(null) 
+            ,5000)
+
           })
       
     }
@@ -94,6 +103,7 @@ const App = () => {
     <div>
       <Heading heading= 'Phonebook'/>
       <Success message={successMessage}/>
+      <Failure message={failureMessage} />
       <Input label ='filter' value={newFilter} onChange={handleFilterChange} /> <br />
 
       <Heading heading= 'Add a new'/>
