@@ -10,6 +10,8 @@ const Heading = ({heading}) => {
   )
 }
 
+
+
 const App = () => {
   const [persons, setPersons] = useState([]) 
   const [newName, setNewName] = useState('')
@@ -21,7 +23,7 @@ const App = () => {
       .then(response => {
         setPersons(response.data)
       })
-  }, [])
+  }, [persons])
 
   const addNumber = (event) => {
     event.preventDefault(); 

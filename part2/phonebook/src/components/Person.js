@@ -7,7 +7,7 @@ const Person = ({persons, filterQuery}) => {
   if(filterQuery === '') {
     return (<ul>
       {persons.map(person => 
-        <Contact name= {person.name} key={person.name} phone={person.phone}/>
+        <Contact name= {person.name} key={person.name} phone={person.phone} id={person.id}/> 
       )}
     </ul>)
   }
@@ -16,7 +16,7 @@ const Person = ({persons, filterQuery}) => {
     
     return (<ul>
       {filtered.map(person => 
-        <Contact name= {person.name} key={person.name} phone={person.phone}/>
+        <Contact name= {person.name} key={person.id} phone={person.phone} id={person.id} />
       )}
     </ul>)
   }
