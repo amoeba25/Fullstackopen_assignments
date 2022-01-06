@@ -2,7 +2,7 @@ const { request, response } = require('express')
 const express = require('express')
 const app = express()
 
-let notes = [
+let contacts = [
     { 
       "id": 1,
       "name": "Arto Hellas", 
@@ -31,12 +31,26 @@ app.get('/', (request, response) => {
 
 //api route to get the inital contacts
 app.get('/api/persons', (request, response) => {
-  response.json(notes)
+  response.json(contacts)
 })
 
 //api route to get the info
 app.get('/info', (request, response) => {
     response.send(`The phonebook as currently ${notes.length} people <br> <br> ${new Date()}`)
+})
+
+//getting a single resource
+app.get('/api/persons/:id', (request, response)=> {
+    
+    const id = Number(request.params.id);
+    const contact=  contacts.find(contact => contact.id === id); 
+
+    if(contact){
+        response.json(contact)
+    }
+    else{
+        response.status(404).end()
+    }
 })
 
 
