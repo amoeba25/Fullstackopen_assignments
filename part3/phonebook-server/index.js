@@ -1,3 +1,4 @@
+const { request, response } = require('express')
 const express = require('express')
 const app = express()
 
@@ -28,10 +29,16 @@ app.get('/', (request, response) => {
   response.send('<h1>Hello World!</h1>')
 })
 
-
+//api route to get the inital contacts
 app.get('/api/persons', (request, response) => {
   response.json(notes)
 })
+
+//api route to get the info
+app.get('/info', (request, response) => {
+    response.send(`The phonebook as currently ${notes.length} people <br> <br> ${new Date()}`)
+})
+
 
 const PORT = 3001
 app.listen(PORT, () => {
